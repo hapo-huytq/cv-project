@@ -131,6 +131,11 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'email' => [
+            'required' => 'The :attribute have to be fill in',
+            'exists' => 'The :attribute is not registered',
+        ]
     ],
 
     /*
