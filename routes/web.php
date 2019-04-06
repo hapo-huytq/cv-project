@@ -33,5 +33,14 @@ Route::group([
     'prefix' => 'admin',
 ], function(){
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::resource('users','UserController')->except([
+        'show'
+    ])->names([
+        'store' => 'admin.users.store',
+        'create' => 'admin.users.create',
+        'index' => 'admin.users.index',
+        'destroy' => 'admin.users.destroy',
+        'update' => 'admin.users.update',
+        'edit' => 'admin.users.edit',
+    ]);
 });

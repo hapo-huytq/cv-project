@@ -15,16 +15,9 @@ class AdminLoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/admin';
-
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest_admin')->except('logout');
     }
 
     public function showLoginForm()
@@ -41,5 +34,14 @@ class AdminLoginController extends Controller
     protected function guard()
     {
         return Auth::guard('admin');
+    }
+
+    public function redirectPath()
+    {
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return route('admin.dashboard');
     }
 }
