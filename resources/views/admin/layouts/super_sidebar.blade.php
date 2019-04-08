@@ -14,7 +14,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview @if(Route::currentRouteName() == 'admin.users.index' || Route::currentRouteName() == 'admin.users.create') active @endif">
+            <li class="treeview @if(Route::currentRouteName() == 'admin.users.index' || Route::currentRouteName() == 'admin.users.create' || Route::currentRouteName() == 'users_trash') active @endif">
                 <a href="#">
                     <i class="fa fa-users" aria-hidden="true"></i> <span>Users</span>
                     <span class="pull-right-container">
@@ -24,6 +24,7 @@
                 <ul class="treeview-menu">
                     <li @if(Route::currentRouteName() == 'admin.users.index') class="active" @endif><a href="{{route('admin.users.index')}}"><i class="fa fa-circle-o"></i> Users list</a></li>
                     <li @if(Route::currentRouteName() == 'admin.users.create') class="active" @endif><a href="{{route('admin.users.create')}}"><i class="fa fa-circle-o"></i> Add new</a></li>
+                    <li @if(Route::currentRouteName() == 'users_trash') class="active" @endif><a href="{{route('users_trash')}}"><i class="fa fa-circle-o"></i> Trash</a></li>
                 </ul>
             </li>
             <li>
