@@ -57,11 +57,8 @@ class RegisterController extends Controller
             'phone' => $request->phone,
             'avatar' => $userAvatar,
         ]);
-
         event(new Registered($user));
-
         $this->guard()->login($user);
-
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }
@@ -71,7 +68,6 @@ class RegisterController extends Controller
         if (method_exists($this, 'redirectTo')) {
             return $this->redirectTo();
         }
-
         return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
     }
 }

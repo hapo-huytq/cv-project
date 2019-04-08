@@ -6,7 +6,7 @@
 @section('breadcrumb')
     <section class="content-header">
         <h1>
-            Admin accounts list
+            Admin accounts trash
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -52,17 +52,18 @@
                         </td>
                         <td>
                             <div class="flex-wrapper">
-                                <form action="{{ route('users_change_role', ['user' => $user->id ]) }}" method="POST">
+                                <form action="{{ route('user_restore', ['user' => $user->id ]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" style="background:none; border:none;" title="Change role"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                                    <button type="submit" style="background:none; border:none;" title="Restore"><i class="fa fa-recycle" aria-hidden="true"></i></button>
                                 </form>
-                                <form action="{{ route('admin.users.destroy', ['user' => $user->id ]) }}" method="POST">
+                                <form action="{{ route('user_remove', ['user' => $user->id ]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" style="background:none; border:none;" title="Move to trash"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button type="submit" style="background:none; border:none;" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </form>
                             </div>
+
                         </td>
                     </tr>
                 @endforeach

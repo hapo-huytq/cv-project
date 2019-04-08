@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Collection;
 
 class SuperAdminUserController extends Controller
 {
@@ -18,7 +19,7 @@ class SuperAdminUserController extends Controller
     public function index()
     {
         $users = Admin::where('type', 2)->orWhere('type', 3)
-            ->orderBy('type', 'asc')->paginate(10);
+            ->orderBy('type', 'asc')->orderBy('name', 'asc')->paginate(10);
         return view('admin.pages.super_admin.admin_list', compact('users'));
     }
 
@@ -35,12 +36,12 @@ class SuperAdminUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreateUserRequest $request)
     {
-        $availableRole = [ 2, 3 ];
+        $availableRole = [2, 3];
         if (in_array($request->role, $availableRole)) {
             $userAvatar = '';
             if ($request->hasFile('avatar')) {
@@ -66,7 +67,7 @@ class SuperAdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\Admin $admin
      * @return \Illuminate\Http\Response
      */
     public function edit(Admin $admin)
@@ -77,8 +78,8 @@ class SuperAdminUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin  $admin
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Admin $admin
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Admin $admin)
@@ -89,11 +90,45 @@ class SuperAdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Admin  $admin
+     * @param  \App\Admin $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Admin $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('admin.users.index');
+    }
+
+    public function indexUserTrash()
+    {
+        $users = Admin::onlyTrashed()
+            ->paginate(10);
+        return view('admin.pages.super_admin.users_trash', compact('users'));
+    }
+
+    public function restoreUserTrash($user)
+    {
+        Admin::withTrashed()
+            ->find($user)
+            ->restore();
+        return redirect()->route('users_trash');
+    }
+
+    public function removeUserTrash($user)
+    {
+        Admin::withTrashed()
+            ->find($user)
+            ->forceDelete();
+        return redirect()->route('users_trash');
+    }
+
+    public function changeRole(Admin $user) {
+        if($user->type === 2) {
+            $user->type = 3;
+        } else {
+            $user->type = 2;
+        }
+        $user->save();
+        return redirect()->route('admin.users.index');
     }
 }

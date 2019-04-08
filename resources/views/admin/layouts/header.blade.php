@@ -230,7 +230,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ route('profile.edit', Auth::guard('admin')->user()->id )}}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
