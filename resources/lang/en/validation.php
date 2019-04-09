@@ -131,6 +131,15 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
+        'email' => [
+            'required' => 'The :attribute have to be fill in',
+            'exists' => 'The :attribute is not registered',
+        ],
+
+        'avatar' => [
+            'uploaded' => 'Maximum file size to upload is 4MB (4096 KB)',
+        ],
     ],
 
     /*

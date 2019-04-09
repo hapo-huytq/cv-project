@@ -11,7 +11,9 @@ class Admin extends Authenticatable
     use Notifiable;
     use SoftDeletes;
 
-    protected $guard = 'admin';
+    const SUPER_ADMIN_ROLE = 1;
+    const ADMIN_ROLE = 2;
+    const HR_ROLE = 3;
 
     protected $fillable = [
         'name', 'email', 'password', 'phone', 'avatar'
