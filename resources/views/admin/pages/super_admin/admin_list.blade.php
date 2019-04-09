@@ -52,12 +52,12 @@
                         </td>
                         <td>
                             <div class="flex-wrapper">
-                                <form action="{{ route('users_change_role', ['user' => $user->id ]) }}" method="POST">
-                                    @method('DELETE')
+                                <form action="{{ route('users_change_role', ['adminUser' => $user->id ]) }}" method="POST">
+                                    @method('PUT')
                                     @csrf
                                     <button type="submit" style="background:none; border:none;" title="Change role"><i class="fa fa-repeat" aria-hidden="true"></i></button>
                                 </form>
-                                <form action="{{ route('admin.users.destroy', ['user' => $user->id ]) }}" method="POST">
+                                <form action="{{ route('admin.users.destroy', ['adminUser' => $user->id ]) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" style="background:none; border:none;" title="Move to trash"><i class="fa fa-trash" aria-hidden="true"></i></button>

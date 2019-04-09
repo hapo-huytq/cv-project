@@ -4,10 +4,16 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                @if(Auth::guard('admin')->user()->avatar !== null)
+                    <img class="img-circle"
+                         src="{{ asset('upload/avatar/admin/'.Auth::guard('admin')->user()->avatar)  }}"
+                         alt="User profile picture">
+                @else
+                    <img src="{{asset('backend/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                @endif
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+                <p>{{ Auth::guard('admin')->user()->name }}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>

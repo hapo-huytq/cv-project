@@ -36,8 +36,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>53</h3>
-
+                    <h3>{{ $countUsers }}</h3>
                     <p>Users</p>
                 </div>
                 <div class="icon">
@@ -51,7 +50,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{ $countHRs }}</h3>
 
                     <p>HRs</p>
                 </div>
@@ -66,7 +65,7 @@
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{ $countAdmins }}</h3>
                     <p>Admins</p>
                 </div>
                 <div class="icon">

@@ -33,9 +33,11 @@ Route::group([
     'prefix' => 'admin',
 ], function(){
     // Supper Admin
-    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/', 'DashboardController@index')->name('admin.dashboard');
     Route::resource('users','SuperAdminUserController')->except([
-        'show'
+        'show', 'edit', 'update'
+    ])->parameters([
+        'users' => 'adminUser'
     ])->names([
         'store' => 'admin.users.store',
         'create' => 'admin.users.create',
@@ -45,14 +47,11 @@ Route::group([
         'edit' => 'admin.users.edit',
     ]);
 
-    Route::delete('/user-change/{user}', 'SuperAdminUserController@changeRole')->name('users_change_role');
+    Route::put('/user-change/{adminUser}', 'SuperAdminUserController@changeRole')->name('users_change_role');
     Route::get('/user-trash', 'SuperAdminUserController@indexUserTrash')->name('users_trash');
-    Route::delete('/user-trash/restore/{user}', 'SuperAdminUserController@restoreUserTrash')->name('user_restore');
-    Route::delete('/user-trash/remove/{user}', 'SuperAdminUserController@removeUserTrash')->name('user_remove');
+    Route::put('/user-trash/restore/{adminUser}', 'SuperAdminUserController@restoreUserTrash')->name('user_restore');
+    Route::delete('/user-trash/remove/{adminUser}', 'SuperAdminUserController@removeUserTrash')->name('user_remove');
     // Change Admin Profile
-    Route::resource('profile','ProfileController')->only([
-        'edit', 'update'
-    ])->parameters([
-        'profile' => 'user'
-    ]);
+    Route::get('/profile', 'ProfileController@edit')->name('profile.edit');
+    Route::put('/profile', 'ProfileController@update')->name('profile.update');
 });
